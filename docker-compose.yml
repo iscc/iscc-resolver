@@ -3,11 +3,11 @@ version: '3'
 services:
     web:
         build: .
-        command: poetry run python manage.py runserver 0.0.0.0:8888
+        command: poetry run gunicorn isccr.wsgi -b 0.0.0.0:8888
         volumes:
             - .:/code
         ports:
-            - "8888:8888"
+            - "8888:80"
         depends_on:
             - migration
             - db

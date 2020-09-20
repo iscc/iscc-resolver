@@ -147,6 +147,23 @@ django = ">=2"
 
 [[package]]
 category = "main"
+description = "WSGI HTTP Server for UNIX"
+name = "gunicorn"
+optional = false
+python-versions = ">=3.4"
+version = "20.0.4"
+
+[package.dependencies]
+setuptools = ">=3.0"
+
+[package.extras]
+eventlet = ["eventlet (>=0.9.7)"]
+gevent = ["gevent (>=0.13)"]
+setproctitle = ["setproctitle"]
+tornado = ["tornado (>=0.2)"]
+
+[[package]]
+category = "main"
 description = "Internationalized Domain Names in Applications (IDNA)"
 name = "idna"
 optional = false
@@ -438,7 +455,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "1.4.4"
 
 [metadata]
-content-hash = "0a97ec8ace2c70907b3c6179ea12ecc1c4cf13e16c8705e0c1eda3a26a0c314e"
+content-hash = "5258f7e19fa28674b3bbb575f641443b5ddf49c869e244710d50658b35cda509"
 lock-version = "1.0"
 python-versions = "^3.8"
 
@@ -493,6 +510,10 @@ django-model-utils = [
 django-public-admin = [
     {file = "django-public-admin-0.0.3.tar.gz", hash = "sha256:f55fc6432ec6f49314283b682a7b9e486e3e74ae2094ceb6b8ca2f4ae8c83b76"},
     {file = "django_public_admin-0.0.3-py3-none-any.whl", hash = "sha256:a9638cabebbbf5c587b6ccb99bd52994548a142357e6b9782b25f27b8ddb7653"},
+]
+gunicorn = [
+    {file = "gunicorn-20.0.4-py2.py3-none-any.whl", hash = "sha256:cd4a810dd51bf497552cf3f863b575dabd73d6ad6a91075b65936b151cbf4f9c"},
+    {file = "gunicorn-20.0.4.tar.gz", hash = "sha256:1904bb2b8a43658807108d59c3f3d56c2b6121a701161de0ddf9ad140073c626"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
