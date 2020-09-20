@@ -8,3 +8,4 @@ COPY pyproject.toml /code/
 RUN pip install poetry
 RUN poetry install
 COPY . /code/
+RUN poetry run python manage.py collectstatic --noinput
