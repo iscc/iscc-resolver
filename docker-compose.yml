@@ -2,31 +2,25 @@ version: '3'
 
 services:
     web:
+        container_name: isccr-web
         build: .
-        command: poetry run python manage.py runserver 0.0.0.0:8888
         volumes:
             - .:/code
         ports:
             - "8888:8888"
         depends_on:
-            - migration
             - db
     observer:
+        container_name: isccr-observer
         build: .
         command: poetry run python -m isccr.observers.coblo
         depends_on:
-            - migration
             - db
+            - web
     db:
+        container_name: isccr-db
         image: postgres
         environment:
             - POSTGRES_DB=isccr
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
-    migration:
-        build: .
-        command: poetry run python manage.py migrate --noinput
-        volumes:
-            - .:/code
-        depends_on:
-            - db

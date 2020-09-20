@@ -8,4 +8,6 @@ COPY pyproject.toml /code/
 RUN pip install poetry
 RUN poetry install
 COPY . /code/
-RUN poetry run python manage.py collectstatic --noinput
+
+# CMD will run when this dockerfile is running
+CMD ["sh", "-c", "poetry run python manage.py collectstatic --no-input; poetry run python manage.py migrate; poetry run python manage.py runserver 0.0.0.0:8888"]
