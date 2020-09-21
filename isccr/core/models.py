@@ -103,20 +103,12 @@ class IsccID(TimeStampedModel):
     )
 
     def get_admin_url(self):
-        # the url to the Django admin form for the model instance
         info = (self._meta.app_label, self._meta.model_name)
         return reverse("admin:%s_%s_change" % info, args=(self.pk,))
 
     class Meta:
         verbose_name = "ISCC-ID"
         verbose_name_plural = "ISCC-IDs"
-        constraints = [
-            models.UniqueConstraint(
-                name="unique-entry",
-                fields=["iscc_id", "iscc_code", "actor"],
-                deferrable=models.Deferrable.IMMEDIATE,
-            )
-        ]
 
     def __str__(self):
         return self.iscc_id
