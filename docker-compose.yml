@@ -28,6 +28,7 @@ services:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
     reverse-proxy:
+        container_name: isccr-traefik
         image: traefik
         command: --api # Enables the web UI
         ports:
