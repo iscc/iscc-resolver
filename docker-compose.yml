@@ -7,9 +7,12 @@ services:
         volumes:
             - .:/code
         ports:
-            - "80:8888"
+            - "8888"
         depends_on:
             - db
+        labels:
+            - "traefik.enable=true"
+            - "traefik.frontend.rule=Host:iscc.in"
     observer:
         container_name: isccr-observer
         build: .
@@ -24,3 +27,14 @@ services:
             - POSTGRES_DB=isccr
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+    reverse-proxy:
+        image: traefik
+        command: --api # Enables the web UI
+        ports:
+            - "80:80" # The HTTP port
+            - "443:443" # The HTTPS port
+            - "8080:8080" # The web UI
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+            - ./traefik/traefik.toml:/traefik.toml # Traefik configuration file
+            - ./volumes/traefik-acme:/acme # Tell Traefik to save SSL certs here
