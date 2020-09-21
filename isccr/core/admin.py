@@ -3,6 +3,7 @@ from public_admin.admin import PublicModelAdmin
 from isccr.core.models import Chain, IsccID
 from public_admin.sites import PublicAdminSite, PublicApp
 
+
 public_app = PublicApp("core", models=("IsccID", "Chain"))
 
 
@@ -26,6 +27,7 @@ isccr_admin.register(Chain, ChainAdmin)
 
 class IsccIDAdmin(PublicModelAdmin):
 
+    readonly_fields = [f.name for f in IsccID._meta.fields]
     actions = None
     list_per_page = 20
     search_fields = ["iscc_id"]
@@ -35,6 +37,7 @@ class IsccIDAdmin(PublicModelAdmin):
         "actor",
         "revision",
     ]
+    list_select_related = ["src_chain"]
 
     fieldsets = (
         (
