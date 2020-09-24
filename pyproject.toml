@@ -17,6 +17,7 @@ django-public-admin = "^0.0.3"
 psycopg2 = "^2.8.6"
 whitenoise = "^5.2.0"
 gunicorn = "^20.0.4"
+web3 = "^5.12.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

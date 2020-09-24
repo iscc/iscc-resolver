@@ -10,10 +10,17 @@ services:
             - "80:8888"
         depends_on:
             - db
-    observer:
-        container_name: isccr-observer
+    coblo:
+        container_name: isccr-observer-coblo
         build: .
         command: poetry run python -m isccr.observers.coblo
+        depends_on:
+            - db
+            - web
+    bloxberg:
+        container_name: isccr-observer-bloxberg
+        build: .
+        command: poetry run python -m isccr.observers.bloxberg
         depends_on:
             - db
             - web

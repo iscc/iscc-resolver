@@ -33,8 +33,10 @@ class IsccIDAdmin(PublicModelAdmin):
     search_fields = ["iscc_id"]
     list_display = [
         "iscc_id",
+        "src_chain",
         "iscc_code",
         "actor",
+        "src_time",
         "revision",
     ]
     list_select_related = ["src_chain"]
@@ -83,9 +85,10 @@ class IsccIDAdmin(PublicModelAdmin):
             return ""
         if obj.src_tx_out_idx is not None:
             url = obj.src_chain.url_template.format(obj.src_tx_hash, obj.src_tx_out_idx)
-            html = f'<a href="{url}" target="top">{url}</a>'
-            return mark_safe(html)
-        return ""
+        else:
+            url = obj.src_chain.url_template.format(obj.src_tx_hash)
+        html = f'<a href="{url}" target="top">{url}</a>'
+        return mark_safe(html)
 
     admin_ledger_link.short_description = "Ledger URL"
 

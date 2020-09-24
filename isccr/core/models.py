@@ -97,7 +97,7 @@ class IsccID(TimeStampedModel):
         null=True,
         help_text="Output index that includes ISCC-DECLERATION (UTXO based chains)",
     )
-    src_time = models.DateTimeField()
+    src_time = models.DateTimeField(verbose_name="timestamp")
     revision = models.PositiveIntegerField(
         default=0, help_text="Number of times updated"
     )

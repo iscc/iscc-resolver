@@ -119,15 +119,16 @@ TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_L10N = True
+USE_L10N = False
 
 USE_TZ = True
 
+DATETIME_FORMAT = "Y-m-d G:i"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 CHAIN_COBLO_HOST = os.getenv("CHAIN_COBLO_HOST", "t2.coblo.net")
 CHAIN_COBLO_PORT = os.getenv("CHAIN_COBLO_PORT", "9718")

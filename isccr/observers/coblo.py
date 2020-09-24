@@ -14,7 +14,7 @@ import mcrpc
 
 
 CHAIN_ID_COBLO = 1
-ISCC_ID_HEADER_COBLO = 0b0100_0001 .to_bytes(1, "big")
+ISCC_ID_HEADER_COBLO = 0b0100_0001 .to_bytes(1, "big", signed=False)
 
 
 class LazyStream:
@@ -119,7 +119,7 @@ def update(chain_obj: Chain, batch_size: int = 1000):
         log.debug(entry)
         iscc_code = "-".join(entry["keys"])
         actor = entry["publishers"][0]
-        decleration = dict(
+        declaration = dict(
             iscc_code=iscc_code,
             actor=actor,
             src_chain=chain_obj,
@@ -133,13 +133,13 @@ def update(chain_obj: Chain, batch_size: int = 1000):
         data = entry["data"].get("json")
         if data:
             if data.get("tophash"):
-                decleration["iscc_tophash"] = data["tophash"]
+                declaration["iscc_tophash"] = data["tophash"]
             if data.get("title"):
-                decleration["iscc_seed_title"] = data["title"]
+                declaration["iscc_seed_title"] = data["title"]
             if data.get("extra"):
-                decleration["iscc_seed_extra"] = data["extra"]
+                declaration["iscc_seed_extra"] = data["extra"]
             if data.get("meta"):
-                decleration["iscc_mutable_metadata"] = data["meta"]
+                declaration["iscc_mutable_metadata"] = data["meta"]
 
         counter = 0
         while True:
@@ -147,13 +147,13 @@ def update(chain_obj: Chain, batch_size: int = 1000):
             try:
                 iscc_id_obj = IsccID.objects.get(iscc_id=iscc_id)
             except IsccID.DoesNotExist:
-                iscc_id_obj = IsccID.objects.create(iscc_id=iscc_id, **decleration)
+                iscc_id_obj = IsccID.objects.create(iscc_id=iscc_id, **declaration)
                 log.debug(f"created {iscc_id_obj}")
                 break
             # Update exsting ISCC-ID if from same actor for same ISCC-CODE
             if iscc_id_obj.actor == actor and iscc_id_obj.iscc_code == iscc_code:
-                for key in decleration:
-                    setattr(iscc_id_obj, key, decleration[key])
+                for key in declaration:
+                    setattr(iscc_id_obj, key, declaration[key])
                 iscc_id_obj.revision += 1
                 iscc_id_obj.save()
                 log.info(f"updated {iscc_id}")
@@ -187,6 +187,7 @@ def observe():
             except Exception as e:
                 log.warning("Reconnection failed")
                 time.sleep(10)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
