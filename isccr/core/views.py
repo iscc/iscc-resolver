@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from django.core import serializers
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic.base import RedirectView
 
@@ -25,6 +26,13 @@ def resovle(request, iscc_id):
     iscc_id_obj = get_object_or_404(IsccID, pk=iscc_id)
 
     return redirect(iscc_id_obj.get_admin_url())
+
+
+def lookup(request, iscc_code, actor):
+    iscc_id_obj = get_object_or_404(IsccID, iscc_code=iscc_code, actor=actor)
+    return JsonResponse(
+        {"iscc_id": iscc_id_obj.iscc_id},
+    )
 
 
 class IsccRedirectView(RedirectView):

@@ -20,5 +20,6 @@ from django.urls import path
 urlpatterns = [
     path("", views.index, name="index"),
     path("<str:iscc_id>", views.resovle, name="resolver"),
+    path("lookup/<str:iscc_code>/<str:actor>", views.lookup, name="lookup"),
     path("browse/", isccr_admin.urls),
 ]
