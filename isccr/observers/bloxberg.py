@@ -48,7 +48,7 @@ def w3_client():
     return W3_CLIENT
 
 
-def update():
+def update(chain_obj: Chain):
 
     last = (
         IsccID.objects.filter(src_chain__id=CHAIN_ID_BLOXBERG)
@@ -119,7 +119,7 @@ def observe():
 
     while True:
         try:
-            update()
+            update(chain_obj)
         except (InterfaceError, OperationalError) as e:
             log.warning(repr(e))
             log.info("Trying to gracefully reconnect to DB")

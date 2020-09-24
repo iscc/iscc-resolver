@@ -23,7 +23,4 @@ def build_iscc_id(ledger_id, iscc_code, counter: int):
     # First 7 bytes (including header) of all but Instance-ID
     digests = [iscc.decode(c)[:7] for c in components if not c.startswith("CR")]
     iscc_id_body = iscc.similarity_hash(digests)
-    # cid = digest[10:13]
-    # did = digest[20:22]
-    # iid = digest[29:31]
     return iscc.encode(ledger_id + iscc_id_body + uvarint.encode(counter))
