@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-import time
-
-from django.db import InterfaceError, OperationalError, connection
-
 from isccr import standalone
+import time
+from django.db import InterfaceError, OperationalError, connection
 from datetime import datetime
 import pytz
 import sys
