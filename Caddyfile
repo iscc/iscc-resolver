@@ -1,0 +1,17 @@
+{
+  email tp@iscc.foundation
+}
+
+www.iscc.in {
+  redir https://{$DOMAIN_NAME}{uri}
+}
+
+iscc.in {
+  header Strict-Transport-Security max-age=31536000;
+  header -Server
+  reverse_proxy web:8888
+  encode gzip
+  log {
+      output stdout
+  }
+}

@@ -4,10 +4,12 @@ services:
     web:
         container_name: isccr-web
         build: .
-        volumes:
-            - .:/code
+        command: >
+            bash -c "poetry run python manage.py migrate &&
+                     poetry run python manage.py collectstatic --no-input &&
+                     poetry run gunicorn isccr.wsgi:application --bind 0.0.0.0:8888"
         ports:
-            - "80:8888"
+            - "8888:8888"
         depends_on:
             - db
     coblo:
@@ -31,3 +33,19 @@ services:
             - POSTGRES_DB=isccr
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=postgres
+    caddy:
+        image: "caddy:2.0.0"
+        restart: unless-stopped
+        volumes:
+            - ./Caddyfile:/etc/caddy/Caddyfile  # configuration
+            - caddy-config:/config  # configuation autosaves
+            - caddy-data:/data  # saving certificates
+        ports:
+            - "80:80"
+            - "443:443"
+        depends_on:
+            - web
+
+volumes:
+  caddy-config:
+  caddy-data:

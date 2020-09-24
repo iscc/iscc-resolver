@@ -63,7 +63,6 @@ def update(chain_obj: Chain):
     event_filter = co.events.ISCC.createFilter(fromBlock=start_height)
     log.info(f"Observing bloxberg: start_height={start_height}")
     for event in event_filter.get_all_entries():
-        log.debug(event)
         txhash = event.transactionHash.hex()
         if IsccID.objects.filter(src_tx_hash=txhash).exists():
             log.warning(f"Already processed: {txhash}")
