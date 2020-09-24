@@ -27,6 +27,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", secrets.token_urlsafe(32))
 DEBUG = os.getenv("DEBUG", False)
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     "whitenoise.runserver_nostatic",
     "isccr.core",
     "public_admin",
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
