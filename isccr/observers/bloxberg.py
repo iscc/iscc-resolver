@@ -126,6 +126,11 @@ def observe():
             except Exception as e:
                 log.warning("Reconnection failed")
                 time.sleep(10)
+        except Exception:
+            # Reset websocket client
+            global W3_CLIENT
+            W3_CLIENT = None
+            time.sleep(10)
         time.sleep(3)
 
 
