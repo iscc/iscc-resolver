@@ -40,9 +40,9 @@ def w3_client():
         if W3_CLIENT.isConnected():
             log.debug(f"Connected to {W3_URL}")
         else:
-            log.error("Connection failed")
-            log.error(f"Connection failed to {W3_URL}.")
-            sys.exit()
+            msg = f"Connection failed to {W3_URL}."
+            log.error(msg)
+            raise ConnectionError(msg)
     return W3_CLIENT
 
 
