@@ -101,7 +101,7 @@ class LazyStream:
             return result
 
 
-def update(chain_obj: Chain, batch_size: int = 10):
+def update(chain_obj: Chain, batch_size: int = 1000):
     """Process next 'batch_size' ISCC declerations"""
     iscc_stream = LazyStream("iscc")
     last = (
@@ -187,7 +187,7 @@ def observe():
             except Exception as e:
                 log.warning("Reconnection failed")
                 time.sleep(10)
-        time.sleep(60)
+        time.sleep(5)
 
 
 if __name__ == "__main__":

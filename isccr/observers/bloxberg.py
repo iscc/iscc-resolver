@@ -131,7 +131,7 @@ def observe():
             global W3_CLIENT
             W3_CLIENT = None
             time.sleep(10)
-        time.sleep(3)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
