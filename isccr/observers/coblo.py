@@ -101,7 +101,7 @@ class LazyStream:
             return result
 
 
-def update(chain_obj: Chain, batch_size: int = 1000):
+def update(chain_obj: Chain, batch_size: int = 10000):
     """Process next 'batch_size' ISCC declerations"""
     iscc_stream = LazyStream("iscc")
     last = (
