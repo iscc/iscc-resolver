@@ -13,11 +13,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.views.generic import TemplateView
+
 from isccr.core import views
 from isccr.core.admin import isccr_admin
 from django.urls import path
 
 urlpatterns = [
+    path(
+        "robots.txt",
+        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
+    ),
     path("", views.index, name="index"),
     path("<str:iscc_id>", views.resovle, name="resolver"),
     path("lookup/<str:iscc_code>/<str:actor>", views.lookup, name="lookup"),
