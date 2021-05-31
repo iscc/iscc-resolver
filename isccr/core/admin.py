@@ -30,7 +30,11 @@ class IsccIDAdmin(PublicModelAdmin):
     readonly_fields = [f.name for f in IsccID._meta.fields]
     actions = None
     list_per_page = 20
-    search_fields = ["iscc_id", "iscc_code", "actor"]
+    search_fields = [
+    #    "iscc_id",
+        "iscc_code",
+    #    "actor"
+    ]
     list_display = [
         "iscc_id",
         "src_chain",
