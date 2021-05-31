@@ -143,13 +143,20 @@ def update(chain_obj: Chain, batch_size: int = 10000):
 
         counter = 0
         while True:
-            iscc_id = build_iscc_id(ISCC_ID_HEADER_COBLO, iscc_code, counter)
+
+            try:
+                iscc_id = build_iscc_id(ISCC_ID_HEADER_COBLO, iscc_code, counter)
+            except Exception:
+                log.error(f"faild to build short-id for {iscc_code}")
+                break
+
             try:
                 iscc_id_obj = IsccID.objects.get(iscc_id=iscc_id)
             except IsccID.DoesNotExist:
                 iscc_id_obj = IsccID.objects.create(iscc_id=iscc_id, **declaration)
                 log.debug(f"created {iscc_id_obj}")
                 break
+
             # Update exsting ISCC-ID if from same actor for same ISCC-CODE
             if iscc_id_obj.actor == actor and iscc_id_obj.iscc_code == iscc_code:
                 for key in declaration:
