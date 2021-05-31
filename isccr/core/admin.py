@@ -1,6 +1,7 @@
 from admin_cursor_paginator import CursorPaginatorAdmin
 from django.utils.safestring import mark_safe
 from public_admin.admin import PublicModelAdmin
+from watson.admin import SearchAdmin
 from isccr.core.models import Chain, IsccID
 from public_admin.sites import PublicAdminSite, PublicApp
 
@@ -26,7 +27,7 @@ class ChainAdmin(PublicModelAdmin):
 isccr_admin.register(Chain, ChainAdmin)
 
 
-class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin):
+class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin, SearchAdmin):
 
     readonly_fields = [f.name for f in IsccID._meta.fields]
     actions = None

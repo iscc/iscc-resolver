@@ -196,6 +196,14 @@ python-versions = ">=3.6,<4.0"
 django = ">=2"
 
 [[package]]
+name = "django-watson"
+version = "1.5.5"
+description = "Full-text multi-table search application for Django. Easy to install and use, with good performance."
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "eth-abi"
 version = "2.1.1"
 description = "eth_abi: Python utilities for working with Ethereum ABI definitions, especially encoding and decoding"
@@ -853,7 +861,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "b38440efb8808598760cc5d2f8a3ff86b007c0e843afd81c791a6201b62689e3"
+content-hash = "9b60bc472d0f24e1f958c438bf8d40411083bfa6fee4b4be45ef91b7e3e4c6fc"
 
 [metadata.files]
 appdirs = [
@@ -923,6 +931,9 @@ django-model-utils = [
 django-public-admin = [
     {file = "django-public-admin-0.0.3.tar.gz", hash = "sha256:f55fc6432ec6f49314283b682a7b9e486e3e74ae2094ceb6b8ca2f4ae8c83b76"},
     {file = "django_public_admin-0.0.3-py3-none-any.whl", hash = "sha256:a9638cabebbbf5c587b6ccb99bd52994548a142357e6b9782b25f27b8ddb7653"},
+]
+django-watson = [
+    {file = "django-watson-1.5.5.tar.gz", hash = "sha256:456123d1601f275ef222d9ccbb3b73e7dcb70f1370e4d45651aa2d359ee6e0e3"},
 ]
 eth-abi = [
     {file = "eth_abi-2.1.1-py3-none-any.whl", hash = "sha256:78df5d2758247a8f0766a7cfcea4575bcfe568c34a33e6d05a72c328a9040444"},
