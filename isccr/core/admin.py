@@ -1,3 +1,4 @@
+from admin_cursor_paginator import CursorPaginatorAdmin
 from django.utils.safestring import mark_safe
 from public_admin.admin import PublicModelAdmin
 from isccr.core.models import Chain, IsccID
@@ -25,16 +26,12 @@ class ChainAdmin(PublicModelAdmin):
 isccr_admin.register(Chain, ChainAdmin)
 
 
-class IsccIDAdmin(PublicModelAdmin):
+class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin):
 
     readonly_fields = [f.name for f in IsccID._meta.fields]
     actions = None
     list_per_page = 20
-    search_fields = [
-    #    "iscc_id",
-        "iscc_code",
-    #    "actor"
-    ]
+    search_fields = ["iscc_id", "iscc_code", "actor"]
     list_display = [
         "iscc_id",
         "src_chain",

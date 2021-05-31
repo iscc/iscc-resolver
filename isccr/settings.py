@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "public_admin",
     "corsheaders",
     "django.contrib.admin",
+    "admin_cursor_paginator",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",

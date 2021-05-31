@@ -19,6 +19,7 @@ whitenoise = "^5.2.0"
 gunicorn = "^20.0.4"
 web3 = "^5.12.1"
 django-cors-headers = "^3.5.0"
+django-admin-cursor-paginator = "^0.1.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
