@@ -4,6 +4,8 @@ from public_admin.admin import PublicModelAdmin
 from isccr.core.models import Chain, IsccID
 from public_admin.sites import PublicAdminSite, PublicApp
 
+from isccr.utils import iscc_verify
+
 
 public_app = PublicApp("core", models=("IsccID", "Chain"))
 
@@ -26,12 +28,12 @@ class ChainAdmin(PublicModelAdmin):
 isccr_admin.register(Chain, ChainAdmin)
 
 
-class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin):
+class IsccIDAdmin(PublicModelAdmin):
 
     readonly_fields = [f.name for f in IsccID._meta.fields]
     actions = None
     list_per_page = 20
-    search_fields = ["=iscc_id", "@iscc_code", "=actor"]
+    search_fields = ["=iscc_id", "@iscc_code"]
     list_display = [
         "iscc_id",
         "src_chain",
@@ -41,6 +43,7 @@ class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin):
         "revision",
     ]
     list_select_related = ["src_chain"]
+    ordering = ("-src_time",)
 
     fieldsets = (
         (
@@ -92,6 +95,23 @@ class IsccIDAdmin(PublicModelAdmin, CursorPaginatorAdmin):
         return mark_safe(html)
 
     admin_ledger_link.short_description = "Ledger URL"
+
+    def get_search_results(self, request, queryset, search_term):
+        """Optimized Search"""
+        clean = search_term.strip()
+        if not clean:
+            return queryset, False
+
+        if clean.startswith("28") or clean.startswith("29"):
+            return queryset.filter(iscc_id=clean), False
+
+        try:
+            if iscc_verify(search_term):
+                return queryset.filter(iscc_code__search=search_term), False
+        except ValueError:
+            queryset = IsccID.objects.none()
+
+        return queryset, False
 
 
 isccr_admin.register(IsccID, IsccIDAdmin)
