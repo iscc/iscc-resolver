@@ -1,9 +1,10 @@
 from admin_cursor_paginator import CursorPaginatorAdmin
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from public_admin.admin import PublicModelAdmin
 from isccr.core.models import Chain, IsccID
 from public_admin.sites import PublicAdminSite, PublicApp
-
+from django.db import connection
 from isccr.utils import iscc_verify
 
 
@@ -43,7 +44,7 @@ class IsccIDAdmin(PublicModelAdmin):
         "revision",
     ]
     list_select_related = ["src_chain"]
-    ordering = ("-src_time",)
+    # ordering = ("-src_time",)
 
     fieldsets = (
         (
@@ -112,6 +113,19 @@ class IsccIDAdmin(PublicModelAdmin):
             queryset = IsccID.objects.none()
 
         return queryset, False
+
+    @cached_property
+    def count(self):
+        query = self.object_list.query
+        if not query.where:
+            try:
+                cursor = connection.cursor()
+                cursor.execute('SELECT reltuples FROM pg_class WHERE relname = %s', [query.model._meta.db_table])
+                return int(cursor.fetchone()[0])
+            except Exception as e:  # noqa
+                pass
+
+        return super().count
 
 
 isccr_admin.register(IsccID, IsccIDAdmin)

@@ -23,7 +23,7 @@ def index(request):
         ISCC MetaRegistry - MVP
       </h1>
       <p class="subtitle">
-        Try https://iscc.in/&lt;iscc-id&gt; or <a href="/browse/">/browse</a> ISCC Short-IDs
+        Try https://iscc.in/&lt;iscc-id&gt; or <a href="/browse/core/isccid/">/browse</a> ISCC Short-IDs
       </p>
     </div>
   </section>
