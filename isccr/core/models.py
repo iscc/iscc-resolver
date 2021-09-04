@@ -109,6 +109,9 @@ class IsccID(TimeStampedModel):
     class Meta:
         verbose_name = "ISCC-ID"
         verbose_name_plural = "ISCC-IDs"
+        indexes = [
+            models.Index(fields=['src_time'])
+        ]
 
     def __str__(self):
         return self.iscc_id

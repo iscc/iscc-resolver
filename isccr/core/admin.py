@@ -44,7 +44,7 @@ class IsccIDAdmin(PublicModelAdmin):
         "revision",
     ]
     list_select_related = ["src_chain"]
-    # ordering = ("-src_time",)
+    ordering = ("-src_time",)
 
     fieldsets = (
         (
