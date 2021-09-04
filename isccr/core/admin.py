@@ -120,7 +120,10 @@ class IsccIDAdmin(PublicModelAdmin):
         if not query.where:
             try:
                 cursor = connection.cursor()
-                cursor.execute('SELECT reltuples FROM pg_class WHERE relname = %s', [query.model._meta.db_table])
+                cursor.execute(
+                    "SELECT reltuples FROM pg_class WHERE relname = %s",
+                    [query.model._meta.db_table],
+                )
                 return int(cursor.fetchone()[0])
             except Exception as e:  # noqa
                 pass
