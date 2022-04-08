@@ -35,7 +35,7 @@ services:
             - POSTGRES_PASSWORD=postgres
     caddy:
         container_name: isccr-caddy
-        image: "caddy:2.0.0"
+        image: "caddy:2.4.6"
         restart: unless-stopped
         volumes:
             - ./Caddyfile:/etc/caddy/Caddyfile  # configuration
